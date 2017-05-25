@@ -1,18 +1,25 @@
-package com.wz.appstore;
+package com.wz.appstore.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewHelper;
+import com.wz.appstore.R;
+import com.wz.appstore.ui.adapter.FragmentAdapter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
     private View mHeaderView;
 
     @Override
@@ -37,8 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
 
+        Log.e("TAG","oncreate");
+        initTabLayout();
+
         initListener();
     }
+
+    private void initTabLayout() {
+
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
 
     private void initView() {
         mHeaderView = mNavigationView.getHeaderView(0);
@@ -109,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }
